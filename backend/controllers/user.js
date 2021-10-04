@@ -105,19 +105,31 @@ exports.updateUsername = (req, res, next) => {
 };
 
 exports.updateEmail = (req, res, next) => {
-  User.updateOne(
-    { _id: req.params.id },
-    {
-      email: req.body.email,
-    }
-  )
-    .then(() => res.status(200))
-    .catch(() => {
-      res.status(400).send(new Error('Error !'));
-    });
+  if (validator.isEmail(req.body.email)) {
+    User.updateOne(
+      { _id: req.params.id },
+      {
+        email: req.body.email,
+      }
+    )
+      .then(() => res.status(200))
+      .catch(() => {
+        res.status(400).send(new Error('Error !'));
+      });
+  }
 };
 
-exports.updatePassword = (req, res, next) => {};
+exports.updatePassword = (req, res, next) => {
+  if (validator.isStrongPassword(req.body.password, { minSymbols: 0 })) {
+    bcrypt.hash(req.body.password, 10).then((hash) => {
+      User.updateOne({ _id: req.params.id }, { password: hash })
+        .then(() => res.status(200))
+        .catch(() => {
+          res.status(400).send(new Error('Error !'));
+        });
+    });
+  }
+};
 
 exports.deleteUser = async (req, res, next) => {
   await Message.deleteMany({ userId: req.params.id });

@@ -52,8 +52,16 @@
       <form action="#" class="user-form" @submit.prevent>
         <label for="password" class="user__text"> Password : </label>
         <div class="form-field">
-          <input type="text" placeholder="Edit your password" />
-          <button class="form-field__button">
+          <input
+            type="password"
+            placeholder="Edit your password"
+            v-model="password"
+          />
+          <button
+            class="form-field__button"
+            type="submit"
+            @click="updatePassword(password)"
+          >
             <i class="fas fa-check-circle"></i>
           </button>
         </div>
@@ -137,7 +145,6 @@ export default {
           },
         }
       );
-
       this.$router.go();
     },
     updateEmail(email) {
@@ -145,6 +152,21 @@ export default {
       axios.put(
         `http://localhost:3000/api/users/${userId}/email`,
         { email },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem('user')).token
+            }`,
+          },
+        }
+      );
+      this.$router.go();
+    },
+    updatePassword(password) {
+      const userId = this.userId;
+      axios.put(
+        `http://localhost:3000/api/users/${userId}/password`,
+        { password },
         {
           headers: {
             Authorization: `Bearer ${
