@@ -21,11 +21,30 @@
         <label for="username" class="user__text">
           Username : {{ user.username }}
         </label>
-        <!-- <input type="text" placeholder="Edit your username" /> -->
+        <div class="form-field">
+          <input type="text" placeholder="Edit your username" />
+          <button class="form-field__button">
+            <i class="fas fa-check-circle"></i>
+          </button>
+        </div>
+      </form>
+      <form action="#" class="user-form" @submit.prevent>
         <label for="email" class="user__text"> Email : {{ user.email }} </label>
-        <!-- <input type="text" placeholder="Edit your email" /> -->
+        <div class="form-field">
+          <input type="text" placeholder="Edit your email" />
+          <button class="form-field__button">
+            <i class="fas fa-check-circle"></i>
+          </button>
+        </div>
+      </form>
+      <form action="#" class="user-form" @submit.prevent>
         <label for="password" class="user__text"> Password : </label>
-        <!-- <input type="text" placeholder="Edit your password" /> -->
+        <div class="form-field">
+          <input type="text" placeholder="Edit your password" />
+          <button class="form-field__button">
+            <i class="fas fa-check-circle"></i>
+          </button>
+        </div>
       </form>
       <button class="button--disconnect aqua" @click="disconnect()">
         <i class="fas fa-sign-out-alt"></i>
@@ -119,7 +138,6 @@ export default {
 .user-form {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 .user__image {
   cursor: pointer;
@@ -127,7 +145,20 @@ export default {
   width: 110pt;
   height: 110pt;
   padding: 4pt 4pt 17pt 4pt;
+  margin: auto;
   margin-bottom: 12px;
+}
+.form-field {
+  display: flex;
+}
+.form-field__button {
+  font-size: 1.4em;
+  margin-left: 12px;
+  opacity: 0.2;
+  transition: opacity 140ms ease-in-out;
+}
+.form-field__button:hover {
+  opacity: 1;
 }
 input {
   align-self: flex-start;
@@ -140,11 +171,13 @@ input {
   margin: 12px 0;
 }
 .button--disconnect {
+  margin: auto;
   margin-top: 24px;
 }
 .button--delete {
   font-size: 1.5em;
   padding: 7px 0;
+  margin: auto;
   margin-top: 24px;
   background: crimson;
   color: #fff;
