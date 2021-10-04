@@ -91,9 +91,31 @@ exports.updateImage = (req, res, next) => {
     });
 };
 
-exports.updateUsername = (req, res, next) => {};
+exports.updateUsername = (req, res, next) => {
+  User.updateOne(
+    { _id: req.params.id },
+    {
+      username: req.body.username,
+    }
+  )
+    .then(() => res.status(200))
+    .catch(() => {
+      res.status(400).send(new Error('Error !'));
+    });
+};
 
-exports.updateEmail = (req, res, next) => {};
+exports.updateEmail = (req, res, next) => {
+  User.updateOne(
+    { _id: req.params.id },
+    {
+      email: req.body.email,
+    }
+  )
+    .then(() => res.status(200))
+    .catch(() => {
+      res.status(400).send(new Error('Error !'));
+    });
+};
 
 exports.updatePassword = (req, res, next) => {};
 

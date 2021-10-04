@@ -22,8 +22,16 @@
           Username : {{ user.username }}
         </label>
         <div class="form-field">
-          <input type="text" placeholder="Edit your username" />
-          <button class="form-field__button">
+          <input
+            type="text"
+            placeholder="Edit your username"
+            v-model="username"
+          />
+          <button
+            class="form-field__button"
+            type="submit"
+            @click="updateUsername(username)"
+          >
             <i class="fas fa-check-circle"></i>
           </button>
         </div>
@@ -31,8 +39,12 @@
       <form action="#" class="user-form" @submit.prevent>
         <label for="email" class="user__text"> Email : {{ user.email }} </label>
         <div class="form-field">
-          <input type="text" placeholder="Edit your email" />
-          <button class="form-field__button">
+          <input type="text" placeholder="Edit your email" v-model="email" />
+          <button
+            class="form-field__button"
+            type="submit"
+            @click="updateEmail(email)"
+          >
             <i class="fas fa-check-circle"></i>
           </button>
         </div>
@@ -68,6 +80,9 @@ export default {
     return {
       userId: this.$store.state.user.userId,
       user: Object,
+      username: '',
+      email: '',
+      password: '',
     };
   },
   mounted: function() {
@@ -107,6 +122,37 @@ export default {
           'Content-type': 'multipart/form-data',
         },
       });
+      this.$router.go();
+    },
+    updateUsername(username) {
+      const userId = this.userId;
+      axios.put(
+        `http://localhost:3000/api/users/${userId}/username`,
+        { username },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem('user')).token
+            }`,
+          },
+        }
+      );
+
+      this.$router.go();
+    },
+    updateEmail(email) {
+      const userId = this.userId;
+      axios.put(
+        `http://localhost:3000/api/users/${userId}/email`,
+        { email },
+        {
+          headers: {
+            Authorization: `Bearer ${
+              JSON.parse(localStorage.getItem('user')).token
+            }`,
+          },
+        }
+      );
       this.$router.go();
     },
     disconnect() {
