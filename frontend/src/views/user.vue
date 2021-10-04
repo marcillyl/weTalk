@@ -30,7 +30,7 @@
           <button
             class="form-field__button"
             type="submit"
-            @click="updateUsername(username)"
+            @click="updateUser('username', username)"
           >
             <i class="fas fa-check-circle"></i>
           </button>
@@ -43,7 +43,7 @@
           <button
             class="form-field__button"
             type="submit"
-            @click="updateEmail(email)"
+            @click="updateUser('email', email)"
           >
             <i class="fas fa-check-circle"></i>
           </button>
@@ -60,7 +60,7 @@
           <button
             class="form-field__button"
             type="submit"
-            @click="updatePassword(password)"
+            @click="updateUser('password', password)"
           >
             <i class="fas fa-check-circle"></i>
           </button>
@@ -132,41 +132,11 @@ export default {
       });
       this.$router.go();
     },
-    updateUsername(username) {
+    updateUser(field, data) {
       const userId = this.userId;
       axios.put(
-        `http://localhost:3000/api/users/${userId}/username`,
-        { username },
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        }
-      );
-      this.$router.go();
-    },
-    updateEmail(email) {
-      const userId = this.userId;
-      axios.put(
-        `http://localhost:3000/api/users/${userId}/email`,
-        { email },
-        {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        }
-      );
-      this.$router.go();
-    },
-    updatePassword(password) {
-      const userId = this.userId;
-      axios.put(
-        `http://localhost:3000/api/users/${userId}/password`,
-        { password },
+        `http://localhost:3000/api/users/${userId}/update`,
+        { field, data },
         {
           headers: {
             Authorization: `Bearer ${

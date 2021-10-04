@@ -91,43 +91,48 @@ exports.updateImage = (req, res, next) => {
     });
 };
 
-exports.updateUsername = (req, res, next) => {
-  User.updateOne(
-    { _id: req.params.id },
-    {
-      username: req.body.username,
-    }
-  )
-    .then(() => res.status(200))
-    .catch(() => {
-      res.status(400).send(new Error('Error !'));
-    });
-};
-
-exports.updateEmail = (req, res, next) => {
-  if (validator.isEmail(req.body.email)) {
-    User.updateOne(
-      { _id: req.params.id },
-      {
-        email: req.body.email,
-      }
-    )
-      .then(() => res.status(200))
-      .catch(() => {
-        res.status(400).send(new Error('Error !'));
-      });
-  }
-};
-
-exports.updatePassword = (req, res, next) => {
-  if (validator.isStrongPassword(req.body.password, { minSymbols: 0 })) {
-    bcrypt.hash(req.body.password, 10).then((hash) => {
-      User.updateOne({ _id: req.params.id }, { password: hash })
+exports.updateUser = (req, res, next) => {
+  const field = req.body.field;
+  switch (field) {
+    case 'username':
+      User.updateOne(
+        { _id: req.params.id },
+        {
+          username: req.body.data,
+        }
+      )
         .then(() => res.status(200))
         .catch(() => {
           res.status(400).send(new Error('Error !'));
         });
-    });
+      break;
+    case 'email':
+      if (validator.isEmail(req.body.data)) {
+        User.updateOne(
+          { _id: req.params.id },
+          {
+            email: req.body.data,
+          }
+        )
+          .then(() => res.status(200))
+          .catch(() => {
+            res.status(400).send(new Error('Error !'));
+          });
+      }
+      break;
+    case 'password':
+      if (validator.isStrongPassword(req.body.data, { minSymbols: 0 })) {
+        bcrypt.hash(req.body.data, 10).then((hash) => {
+          User.updateOne({ _id: req.params.id }, { password: hash })
+            .then(() => res.status(200))
+            .catch(() => {
+              res.status(400).send(new Error('Error !'));
+            });
+        });
+      }
+      break;
+    default:
+      res.status(500).send(new Error('Error!'));
   }
 };
 
