@@ -2,6 +2,8 @@
 
 ## Description 🔎 
 
+> Work in progress
+
 weTalk is a simple social network based on a student project. Rebuilt from scratch using MongoDB, it's a sandbox to try out things and ideas.
 
 ## Features 🔥 
