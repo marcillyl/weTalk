@@ -63,24 +63,28 @@ export default {
       this.image = URL.createObjectURL(this.file);
     },
     createMessage() {
-      const formData = new FormData();
-      formData.set('image', this.file);
-      formData.set('content', this.content.toString());
-      formData.set('userId', this.userId.toString());
-      axios
-        .post('http://127.0.0.1:3000/api/messages/', formData, {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
-        })
-        .then(() => {
-          this.$router.push('/board');
-        })
-        .catch(() => {
-          this.feedback = 'Messages cannot be empty, please type something.';
-        });
+      if (this.content.length > 0 && this.content.trim().length > 0) {
+        const formData = new FormData();
+        formData.set('image', this.file);
+        formData.set('content', this.content.toString());
+        formData.set('userId', this.userId.toString());
+        axios
+          .post('http://127.0.0.1:3000/api/messages/', formData, {
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(localStorage.getItem('user')).token
+              }`,
+            },
+          })
+          .then(() => {
+            this.$router.push('/board');
+          })
+          .catch(() => {
+            this.feedback = 'Messages cannot be empty, please type something.';
+          });
+      } else {
+        this.feedback = 'Messages cannot be empty, please type something.';
+      }
     },
   },
 };
