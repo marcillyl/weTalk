@@ -152,4 +152,9 @@ export default {
   background: #00000044;
   border: solid 1.5pt #ffffff11;
 }
+@media screen and (max-width: 500px) {
+  .message {
+    margin: 7px auto;
+  }
+}
 </style>
