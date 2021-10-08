@@ -8,7 +8,10 @@ const Comment = require('../models/Comment');
 exports.signUp = (req, res, next) => {
   if (
     validator.isEmail(req.body.email) &&
-    validator.isStrongPassword(req.body.password, { minSymbols: 0 })
+    validator.isStrongPassword(req.body.password, {
+      minSymbols: 0,
+      minLength: 7,
+    })
   ) {
     bcrypt.hash(req.body.password, 10).then((hash) => {
       const user = new User({
@@ -118,10 +121,17 @@ exports.updateUser = (req, res, next) => {
           .catch(() => {
             res.status(400).send(new Error('Error !'));
           });
+      } else {
+        return res.status(400).send(new Error('Error !'));
       }
       break;
     case 'password':
-      if (validator.isStrongPassword(req.body.data, { minSymbols: 0 })) {
+      if (
+        validator.isStrongPassword(req.body.data, {
+          minSymbols: 0,
+          minLength: 7,
+        })
+      ) {
         bcrypt.hash(req.body.data, 10).then((hash) => {
           User.updateOne({ _id: req.params.id }, { password: hash })
             .then(() =>
@@ -131,6 +141,8 @@ exports.updateUser = (req, res, next) => {
               res.status(400).send(new Error('Error !'));
             });
         });
+      } else {
+        return res.status(400).send(new Error('Error !'));
       }
       break;
     default:

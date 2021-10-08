@@ -149,18 +149,22 @@ export default {
           }
         )
         .then((response) => {
+          axios
+            .get(`http://localhost:3000/api/users/${userId}`, {
+              headers: {
+                Authorization: `Bearer ${
+                  JSON.parse(localStorage.getItem('user')).token
+                }`,
+              },
+            })
+            .then((response) => {
+              this.user = response.data;
+            });
           this.feedback = response.data.feedback;
-        });
-      axios
-        .get(`http://localhost:3000/api/users/${userId}`, {
-          headers: {
-            Authorization: `Bearer ${
-              JSON.parse(localStorage.getItem('user')).token
-            }`,
-          },
         })
-        .then((response) => {
-          this.user = response.data;
+        .catch(() => {
+          this.feedback =
+            'Incorrect email / password. Password must include 7 characters, 1 uppercase and 1 number.';
         });
     },
     disconnect() {
@@ -196,7 +200,9 @@ export default {
 }
 .user-form__feedback {
   text-align: center;
+  margin: auto;
   margin-top: 12px;
+  max-width: 200px;
 }
 .user__image {
   cursor: pointer;
