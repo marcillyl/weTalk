@@ -101,7 +101,7 @@ exports.updateUser = (req, res, next) => {
           username: req.body.data,
         }
       )
-        .then(() => res.status(200))
+        .then(() => res.status(200).json({ feedback: 'Username updated !' }))
         .catch(() => {
           res.status(400).send(new Error('Error !'));
         });
@@ -114,7 +114,7 @@ exports.updateUser = (req, res, next) => {
             email: req.body.data,
           }
         )
-          .then(() => res.status(200))
+          .then(() => res.status(200).json({ feedback: 'Email updated !' }))
           .catch(() => {
             res.status(400).send(new Error('Error !'));
           });
@@ -124,7 +124,9 @@ exports.updateUser = (req, res, next) => {
       if (validator.isStrongPassword(req.body.data, { minSymbols: 0 })) {
         bcrypt.hash(req.body.data, 10).then((hash) => {
           User.updateOne({ _id: req.params.id }, { password: hash })
-            .then(() => res.status(200))
+            .then(() =>
+              res.status(200).json({ feedback: 'Password updated !' })
+            )
             .catch(() => {
               res.status(400).send(new Error('Error !'));
             });

@@ -66,7 +66,7 @@
           </button>
         </div>
       </form>
-      <p class="user-form__message" v-if="message">{{ message }}</p>
+      <p class="user-form__feedback" v-if="feedback">{{ feedback }}</p>
       <button class="button--disconnect aqua" @click="disconnect()">
         <i class="fas fa-sign-out-alt"></i>
       </button>
@@ -92,7 +92,7 @@ export default {
       username: '',
       email: '',
       password: '',
-      message: '',
+      feedback: '',
     };
   },
   mounted: function() {
@@ -149,7 +149,7 @@ export default {
           }
         )
         .then((response) => {
-          this.message = response.data.message;
+          this.feedback = response.data.feedback;
         });
       axios
         .get(`http://localhost:3000/api/users/${userId}`, {
@@ -194,8 +194,9 @@ export default {
   display: flex;
   flex-direction: column;
 }
-.user-form__message {
+.user-form__feedback {
   text-align: center;
+  margin-top: 12px;
 }
 .user__image {
   cursor: pointer;
