@@ -23,6 +23,7 @@
         class="message__image"
         @click="chooseImage()"
       />
+      <p class="message__feedback" v-if="feedback">{{ feedback }}</p>
       <button class="message__button aqua" @click="createMessage()">
         <i class="fas fa-paper-plane"></i>
       </button>
@@ -44,6 +45,7 @@ export default {
       file: null,
       image: 'http://localhost:3000/assets/images/Black.png',
       userId: this.$store.state.user.userId,
+      feedback: '',
     };
   },
   mounted: function() {
@@ -75,6 +77,9 @@ export default {
         })
         .then(() => {
           this.$router.push('/board');
+        })
+        .catch(() => {
+          this.feedback = 'Messages cannot be empty, please type something.';
         });
     },
   },
@@ -104,6 +109,11 @@ export default {
   height: 100pt;
   padding: 3pt 3pt 17pt 3pt;
   margin: 24px 0;
+}
+.message__feedback {
+  max-width: 200px;
+  margin-bottom: 12px;
+  text-align: center;
 }
 .message__button {
   margin: 12px 0;
