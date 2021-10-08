@@ -96,7 +96,6 @@ textarea {
   padding: 7px;
   color: #fff;
   font-size: 1em;
-  font-weight: 600;
 }
 input::placeholder,
 textarea::placeholder {
@@ -108,7 +107,6 @@ textarea::placeholder {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  width: 100vw;
   padding-top: 77px;
 }
 @keyframes translate {

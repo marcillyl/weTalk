@@ -108,7 +108,7 @@ export default {
 }
 .hello__headline {
   font-size: 1.4em;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 12px;
 }
 .hello__headline--brand {
@@ -123,7 +123,6 @@ p {
 }
 .hello__toggle {
   font-size: 1.1em;
-  font-weight: 600;
   color: aqua;
   padding: 0 0 3px 0;
   border-bottom: solid 1.5pt aqua;

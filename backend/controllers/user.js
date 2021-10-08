@@ -1,9 +1,9 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
-const validator = require("validator");
-const User = require("../models/User");
-const Message = require("../models/Message");
-const Comment = require("../models/Comment");
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const validator = require('validator');
+const User = require('../models/User');
+const Message = require('../models/Message');
+const Comment = require('../models/Comment');
 
 exports.signUp = (req, res, next) => {
   if (
@@ -20,11 +20,11 @@ exports.signUp = (req, res, next) => {
         .save()
         .then(() => res.status(200))
         .catch(() => {
-          res.status(400).send(new Error("Error!"));
+          res.status(400).send(new Error('Error!'));
         });
     });
   } else {
-    throw "Error!";
+    throw 'Error!';
   }
 };
 
@@ -32,13 +32,13 @@ exports.signIn = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        return res.status(401).send(new Error("Error!"));
+        return res.status(401).send(new Error('Error!'));
       }
       bcrypt
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(401).send(new Error("Error!"));
+            return res.status(401).send(new Error('Error!'));
           }
           res.status(200).json({
             isAdmin: user.isAdmin,
@@ -48,16 +48,16 @@ exports.signIn = (req, res, next) => {
                 userId: user._id,
               },
               process.env.TOKEN,
-              { expiresIn: "10h" }
+              { expiresIn: '10h' }
             ),
           });
         })
         .catch(() => {
-          res.status(500).send(new Error("Error!"));
+          res.status(500).send(new Error('Error!'));
         });
     })
     .catch(() => {
-      res.status(500).send(new Error("Error!"));
+      res.status(500).send(new Error('Error!'));
     });
 };
 
@@ -72,7 +72,7 @@ exports.getOneUser = (req, res, next) => {
     )
 
     .catch(() => {
-      res.status(400).send(new Error("Error !"));
+      res.status(400).send(new Error('Error !'));
     });
 };
 
@@ -80,21 +80,21 @@ exports.updateImage = (req, res, next) => {
   User.updateOne(
     { _id: req.params.id },
     {
-      imageUrl: `${req.protocol}://${req.get("host")}/assets/images/${
+      imageUrl: `${req.protocol}://${req.get('host')}/assets/images/${
         req.file.filename
       }`,
     }
   )
     .then(() => res.status(200))
     .catch(() => {
-      res.status(400).send(new Error("Error !"));
+      res.status(400).send(new Error('Error !'));
     });
 };
 
 exports.updateUser = (req, res, next) => {
   const field = req.body.field;
   switch (field) {
-    case "username":
+    case 'username':
       User.updateOne(
         { _id: req.params.id },
         {
@@ -103,10 +103,10 @@ exports.updateUser = (req, res, next) => {
       )
         .then(() => res.status(200))
         .catch(() => {
-          res.status(400).send(new Error("Error !"));
+          res.status(400).send(new Error('Error !'));
         });
       break;
-    case "email":
+    case 'email':
       if (validator.isEmail(req.body.data)) {
         User.updateOne(
           { _id: req.params.id },
@@ -116,23 +116,23 @@ exports.updateUser = (req, res, next) => {
         )
           .then(() => res.status(200))
           .catch(() => {
-            res.status(400).send(new Error("Error !"));
+            res.status(400).send(new Error('Error !'));
           });
       }
       break;
-    case "password":
+    case 'password':
       if (validator.isStrongPassword(req.body.data, { minSymbols: 0 })) {
         bcrypt.hash(req.body.data, 10).then((hash) => {
           User.updateOne({ _id: req.params.id }, { password: hash })
             .then(() => res.status(200))
             .catch(() => {
-              res.status(400).send(new Error("Error !"));
+              res.status(400).send(new Error('Error !'));
             });
         });
       }
       break;
     default:
-      res.status(500).send(new Error("Error!"));
+      res.status(500).send(new Error('Error!'));
   }
 };
 
@@ -142,6 +142,6 @@ exports.deleteUser = async (req, res, next) => {
   User.deleteOne({ _id: req.params.id })
     .then(() => res.status(200))
     .catch(() => {
-      res.status(400).send(new Error("Error!"));
+      res.status(400).send(new Error('Error!'));
     });
 };

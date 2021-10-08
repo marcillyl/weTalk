@@ -66,6 +66,7 @@
           </button>
         </div>
       </form>
+      <p v-if="errorMessage">{{ errorMessage }}</p>
       <button class="button--disconnect aqua" @click="disconnect()">
         <i class="fas fa-sign-out-alt"></i>
       </button>
@@ -91,6 +92,7 @@ export default {
       username: '',
       email: '',
       password: '',
+      errorMessage: '',
     };
   },
   mounted: function() {
@@ -172,6 +174,7 @@ export default {
 .user {
   display: flex;
   flex-direction: column;
+  margin-top: 12px;
 }
 .user-form {
   display: flex;
@@ -204,7 +207,6 @@ input {
 }
 .user__text {
   font-size: 1.1em;
-  font-weight: 600;
   align-self: flex-start;
   margin: 12px 0;
 }

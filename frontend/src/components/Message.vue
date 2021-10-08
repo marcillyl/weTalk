@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="message glass" v-for="message in messages" :key="message._id">
       <div class="message-headbox">
         <img
