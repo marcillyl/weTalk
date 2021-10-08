@@ -66,7 +66,7 @@
           </button>
         </div>
       </form>
-      <p v-if="errorMessage">{{ errorMessage }}</p>
+      <p class="user-form__message" v-if="message">{{ message }}</p>
       <button class="button--disconnect aqua" @click="disconnect()">
         <i class="fas fa-sign-out-alt"></i>
       </button>
@@ -92,7 +92,7 @@ export default {
       username: '',
       email: '',
       password: '',
-      errorMessage: '',
+      message: '',
     };
   },
   mounted: function() {
@@ -136,18 +136,32 @@ export default {
     },
     updateUser(field, data) {
       const userId = this.userId;
-      axios.put(
-        `http://localhost:3000/api/users/${userId}/update`,
-        { field, data },
-        {
+      axios
+        .put(
+          `http://localhost:3000/api/users/${userId}/update`,
+          { field, data },
+          {
+            headers: {
+              Authorization: `Bearer ${
+                JSON.parse(localStorage.getItem('user')).token
+              }`,
+            },
+          }
+        )
+        .then((response) => {
+          this.message = response.data.message;
+        });
+      axios
+        .get(`http://localhost:3000/api/users/${userId}`, {
           headers: {
             Authorization: `Bearer ${
               JSON.parse(localStorage.getItem('user')).token
             }`,
           },
-        }
-      );
-      this.$router.go();
+        })
+        .then((response) => {
+          this.user = response.data;
+        });
     },
     disconnect() {
       localStorage.clear();
@@ -174,11 +188,14 @@ export default {
 .user {
   display: flex;
   flex-direction: column;
-  margin-top: 12px;
+  margin: 12px 0px;
 }
 .user-form {
   display: flex;
   flex-direction: column;
+}
+.user-form__message {
+  text-align: center;
 }
 .user__image {
   cursor: pointer;
