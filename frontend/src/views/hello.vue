@@ -112,7 +112,7 @@ export default {
   margin-bottom: 12px;
 }
 .hello__headline--brand {
-  font-size: 2.7em;
+  font-size: 3em;
   font-weight: 700;
 }
 p {

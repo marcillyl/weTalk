@@ -57,9 +57,9 @@ html {
   min-width: 320px;
 }
 body {
-  background: url('./assets/Images/bg.jpg') no-repeat center;
   background-attachment: fixed;
   background-size: cover;
+  background: #111;
   font-size: 11pt;
   color: #fff;
 }
@@ -129,9 +129,9 @@ textarea::placeholder {
 .glass {
   backdrop-filter: blur(7px);
   -webkit-backdrop-filter: blur(7px);
-  background: #222222dd;
+  background: #222222;
   border: solid 1pt #333;
-  box-shadow: 4pt 4pt 10pt #000000aa;
+  box-shadow: 4pt 4pt 10pt #000000;
   padding: 24px 32px;
 }
 .aqua {
