@@ -16,6 +16,18 @@ export default {
 
 <style>
 @font-face {
+  font-family: 'MontserratAlternates';
+  src: url('./assets/Fonts/Montserrat_Alternates/MontserratAlternates-Regular.ttf')
+    format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'MontserratAlternates';
+  src: url('./assets/Fonts/Montserrat_Alternates/MontserratAlternates-Medium.ttf')
+    format('truetype');
+  font-weight: 500;
+}
+@font-face {
   font-family: 'OpenSans';
   src: url('./assets/Fonts/Open_Sans/OpenSans-Light.ttf') format('truetype');
   font-weight: 300;
@@ -91,7 +103,7 @@ textarea {
   font-family: 'OpenSans', Arial, Helvetica, sans-serif;
   border: none;
   resize: none;
-  background: #11111177;
+  background: #111111aa;
   border: solid 1pt #444;
   padding: 7px;
   color: #fff;
@@ -131,7 +143,7 @@ textarea::placeholder {
   -webkit-backdrop-filter: blur(7px);
   background: #222222;
   border: solid 1pt #333;
-  box-shadow: 4pt 4pt 10pt #000000;
+  box-shadow: 7pt 7pt 0pt #000000dd;
   padding: 24px 32px;
 }
 .aqua {

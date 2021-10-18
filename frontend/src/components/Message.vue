@@ -31,7 +31,6 @@
         alt="Message image"
         class="message__image"
       />
-      <p class="comment-label">Comments...</p>
       <Comment :messageId="message._id" />
     </div>
     <div class="message glass">
@@ -116,7 +115,7 @@ export default {
   align-items: center;
   width: 100%;
   padding-right: 12px;
-  background: #00000044;
+  background: #33333377;
   border: solid 1.5pt #ffffff11;
 }
 .message-headbox__image {
@@ -144,13 +143,8 @@ export default {
   max-width: 100%;
   max-height: 400px;
   margin: auto;
+  margin-top: 12px;
   margin-bottom: 12px;
-}
-.comment-label {
-  display: inline-flex;
-  padding: 12px;
-  background: #00000044;
-  border: solid 1.5pt #ffffff11;
 }
 @media screen and (max-width: 500px) {
   .message {

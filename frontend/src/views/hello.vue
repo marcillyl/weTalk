@@ -112,8 +112,9 @@ export default {
   margin-bottom: 12px;
 }
 .hello__headline--brand {
+  font-family: 'MontserratAlternates', Arial, Helvetica, sans-serif;
   font-size: 3em;
-  font-weight: 700;
+  font-weight: 500;
 }
 p {
   font-size: 1.1em;
@@ -143,6 +144,7 @@ input {
   margin: 12px 0;
 }
 .hello-form__submit {
+  align-self: center;
   margin: 12px 0;
 }
 </style>

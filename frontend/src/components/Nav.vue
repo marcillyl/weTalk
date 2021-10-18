@@ -33,6 +33,8 @@ nav {
   border-top: none;
   border-right: none;
   border-left: none;
+  box-shadow: none;
+  background: #222222dd;
 }
 .nav__link {
   font-size: 1.8em;
